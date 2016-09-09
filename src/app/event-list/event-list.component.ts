@@ -3,7 +3,6 @@ import {TimeEvent} from "../model/timeevent.interface";
 import {TimeEventService} from "../time-event.service";
 
 @Component({
-    moduleId: module.id,
     selector: 'app-event-list',
     templateUrl: 'event-list.component.html',
     styleUrls: ['event-list.component.css']

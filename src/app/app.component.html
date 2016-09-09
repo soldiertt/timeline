@@ -1,14 +1,1 @@
-<div class="container-fluid">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h1 class="panel-title">My events</h1>
-        </div>
-        <div class="panel-body">
-            Hi there ! Just manage your events !
-            <span class="pull-right">
-                <app-modal-event-detail (saved)="saveEvent($event)" [event]="selectedEvent">Select an event</app-modal-event-detail>
-            </span>
-        </div>
-        <app-event-list [events]="events | async" (selected)="selectEvent($event)" (deleted)="deleteEvent($event)"></app-event-list>
-    </div>
-</div>
+<router-outlet></router-outlet>

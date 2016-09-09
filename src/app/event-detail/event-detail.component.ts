@@ -4,17 +4,13 @@ import {EventType} from "../model/eventtype.enum";
 import {EnumUtil} from "../config/enum-util.class";
 import {Participant} from "../model/participant.interface";
 import * as moment from 'moment';
-import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap';
-import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 import {TimeEventService} from "../time-event.service";
+import {ModalDirective} from "ng2-bootstrap";
 
 @Component({
-    moduleId: module.id,
     selector: 'app-modal-event-detail',
     templateUrl: 'event-detail.component.html',
-    styleUrls: ['event-detail.component.css'],
-    directives: [DATEPICKER_DIRECTIVES, MODAL_DIRECTIVES],
-    viewProviders:[BS_VIEW_PROVIDERS],
+    styleUrls: ['event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
 
@@ -33,6 +29,7 @@ export class EventDetailComponent implements OnInit {
         this.selectedEvent.participants = value.participants.slice();
     }
     @Output() saved = new EventEmitter();
+    @Output() new = new EventEmitter();
 
     constructor(private timeEventService: TimeEventService) {
         (this.minDate = new Date()).setDate(this.minDate.getDate() - 1000);
@@ -45,7 +42,11 @@ export class EventDetailComponent implements OnInit {
 
     ngOnInit() {
         this.eventTypes = EnumUtil.getNames(EventType);
-        this.persons = [{id: 0, firstname:"", lastname:""}, {id: 1, firstname:"Jean-Louis", lastname:"Bourlet"}, {id: 2, firstname:"Maylee", lastname:"Bourlet"}];
+        this.persons = [{id: 0, firstname:"", lastname:""},
+            {id: 1, firstname:"Jean-Louis", lastname:"Bourlet"},
+            {id: 2, firstname:"Maylee", lastname:"Bourlet"},
+            {id: 3, firstname:"Liam", lastname:"Bourlet"},
+            {id: 4, firstname:"Yun", lastname:"Li"}];
         this.newParticipant = this.persons[0];
     }
 
@@ -53,6 +54,11 @@ export class EventDetailComponent implements OnInit {
         this._dt = value;
         let dtMoment = moment(value);
         this.selectedEvent.date = dtMoment.format('YYYY-MM-DD');
+    }
+
+    newTimeEvent() {
+        this.new.emit(null);
+        this.lgModal.show();
     }
 
     addParticipant() {

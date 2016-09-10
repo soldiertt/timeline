@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule, RequestOptions }    from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../environments/environment';
 
 import { AppComponent }         from './app.component';
 import { HomeComponent }         from './home.component';
@@ -29,7 +30,7 @@ import { JsonRequestOptions } from "./config/jsonrequestoptions.class";
         EventDetailComponent
     ],
     providers: [
-        {provide: 'webApiBaseUrl', useValue: 'http://localhost:3000/restapi'},
+        {provide: 'webApiBaseUrl', useValue: environment.webApiBaseUrl},
         {provide: RequestOptions, useClass: JsonRequestOptions},
         EventListService,
         TimeEventService

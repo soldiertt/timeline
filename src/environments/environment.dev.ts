@@ -1,3 +1,4 @@
 export const environment = {
-  production: false
+    production: false,
+    webApiBaseUrl: 'http://localhost:3000/restapi'
 };

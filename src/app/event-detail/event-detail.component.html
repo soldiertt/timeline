@@ -1,82 +1,81 @@
 <button class="btn btn-primary" (click)="newTimeEvent()">Add new event</button>
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-<form name="addTimeEventModal" (submit)="createTimeEvent()" class="form-horizontal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" *ngIf="selectedEvent.id">Editing {{originalTitle}}</h4>
-                <h4 class="modal-title" *ngIf="!selectedEvent.id">Create new event</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Event title</label>
-                    <div class="col-sm-9">
-                        <input class="form-control" [(ngModel)]="selectedEvent.title" name="eventTitle" placeholder="Enter a title" type="text" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Event Description</label>
-                    <div class="col-sm-9">
-                        <textarea class="form-control" [(ngModel)]="selectedEvent.description" name="eventDescription" placeholder="Enter a description"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Event Type</label>
-                    <div class="col-sm-9">
-                        <select class="form-control" [(ngModel)]="selectedEvent.type" name="eventType" required>
-                            <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Event date</label>
-                    <div class="col-sm-9">
-                        <input class="form-control" [(ngModel)]="selectedEvent.date" name="eventDate" type="date" required>
-                        <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"
-                                    name="datepicker"></datepicker>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Participants</label>
-                    <div class="col-sm-9">
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <select class="form-control" [(ngModel)]="newParticipant" name="newParticipant">
-                                    <option *ngFor="let person of persons" [ngValue]="person">
-                                        {{personDisplayName(person)}}
-                                    </option>
-                                </select>
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <ul class="list-group" *ngIf="selectedEvent.participants.length">
-                                            <li class="list-group-item" *ngFor="let participant of selectedEvent.participants">
-                                                {{participant.firstname}} {{participant.lastname}}
-                                                <span class="pull-right">
-                                                    <button class="btn btn-xs btn-warning" href (click)="deleteParticipant(participant, $event)">Delete</button>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                        <div class="alert alert-danger" *ngIf="!selectedEvent.participants.length">
-                                            No participant
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-sm btn-default" type="button" (click)="addParticipant()" [disabled]="newParticipant.id === 0">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" type="button" (click)="lgModal.hide()">Cancel</button>
-                <button class="btn btn-primary" type="submit" name="submit">Valider</button>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
+<template ngbModalContainer #eventModal let-c="close" let-d="dismiss" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <form name="addTimeEventModal" (submit)="c('creatOrupdate')">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" (click)="d('Cross-Click')" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" *ngIf="selectedEvent.id">Editing {{originalTitle}}</h4>
+                  <h4 class="modal-title" *ngIf="!selectedEvent.id">Create new event</h4>
+              </div>
+              <div class="modal-body container">
+                  <div class="form-group row">
+                      <label class="col-form-label col-md-3">Event title</label>
+                      <div class="col-md-9">
+                          <input class="form-control" [(ngModel)]="selectedEvent.title" name="eventTitle" placeholder="Enter a title" type="text" required>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label class="col-form-label col-md-3">Event Description</label>
+                      <div class="col-md-9">
+                          <textarea class="form-control" [(ngModel)]="selectedEvent.description" name="eventDescription" placeholder="Enter a description"></textarea>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label class="col-form-label col-md-3">Event Type</label>
+                      <div class="col-md-9">
+                          <select class="form-control" [(ngModel)]="selectedEvent.type" name="eventType" required>
+                              <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label class="col-form-label col-md-3">Event date</label>
+                      <div class="col-md-9">
+                          <input class="form-control" [(ngModel)]="selectedEvent.date" name="eventDate" type="date" required>
+                          <ngb-datepicker #eventDatePicker [(ngModel)]="dt" name="eventDatePicker"></ngb-datepicker>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label class="col-form-label col-md-3">Participants</label>
+                      <div class="col-md-9">
+                          <div class="row">
+                              <div class="col-sm-9">
+                                  <select class="form-control" [(ngModel)]="newParticipant" name="newParticipant">
+                                      <option *ngFor="let person of persons" [ngValue]="person">
+                                          {{personDisplayName(person)}}
+                                      </option>
+                                  </select>
+                                  <div class="panel panel-default">
+                                      <div class="panel-body">
+                                          <ul class="list-group" *ngIf="selectedEvent.participants.length">
+                                              <li class="list-group-item" *ngFor="let participant of selectedEvent.participants">
+                                                  {{participant.firstname}} {{participant.lastname}}
+                                                  <span class="pull-right">
+                                                      <button class="btn btn-xs btn-warning" href (click)="deleteParticipant(participant, $event)">Delete</button>
+                                                  </span>
+                                              </li>
+                                          </ul>
+                                          <div class="alert alert-danger" *ngIf="!selectedEvent.participants.length">
+                                              No participant
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <button class="btn btn-sm btn-default" type="button" (click)="addParticipant()" [disabled]="newParticipant.id === 0">Add</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-default" type="button" (click)="d('Cancel')">Cancel</button>
+                  <button class="btn btn-primary" type="submit" name="submit">Valider</button>
+              </div>
+          </div>
+      </div>
+    </form>
+</template>

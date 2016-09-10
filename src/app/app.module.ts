@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule, RequestOptions }    from '@angular/http';
-import { Ng2BootstrapModule, ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent }         from './app.component';
 import { HomeComponent }         from './home.component';
@@ -19,8 +19,7 @@ import { JsonRequestOptions } from "./config/jsonrequestoptions.class";
         BrowserModule,
         FormsModule,
         HttpModule,
-        Ng2BootstrapModule,
-        ModalModule,
+        NgbModule,
         routing
     ],
     declarations: [

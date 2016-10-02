@@ -1,3 +1,4 @@
+<form name="filterEventsForm" [formGroup]="eventsFilterForm">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -10,7 +11,39 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let event of events">
+        <tr>
+            <td>
+                <input type="text" name="titleFilter" formControlName="titleFilter" />
+            </td>
+            <td>
+                <input type="text" name="descFilter" formControlName="descFilter" />
+            </td>
+            <td>
+                <select name="typeFilter" id="typeFilter" formControlName="typeFilter" >
+                    <option value="ALL">ALL</option>
+                    <option value="HOLIDAY">HOLIDAY</option>
+                    <option value="STAGE">STAGE</option>
+                    <option value="OTHER">OTHER</option>
+                </select>
+            </td>
+            <td>
+                <select name="yearFilter" id="yearFilter" formControlName="yearFilter" >
+                    <option value="ALL">ALL</option>
+                    <option *ngFor="let year of allYears" [value]="year">{{year}}</option>
+                </select>
+            </td>
+            <td>
+                <select name="participantfilter" id="participanFilter" formControlName="participantFilter" >
+                    <option value="ALL">ALL</option>
+                    <option value="Jean-Louis Bourlet">Jean-Louis Bourlet</option>
+                    <option value="Maylee Bourlet">Maylee Bourlet</option>
+                    <option value="Liam Bourlet">Liam Bourlet</option>
+                    <option value="Yun Li">Li Yun</option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr *ngFor="let event of filteredEvents">
             <td>{{event.title}}</td>
             <td>{{event.description}}</td>
             <td>{{event.type}}</td>
@@ -27,3 +60,4 @@
         </tr>
     </tbody>
 </table>
+</form>

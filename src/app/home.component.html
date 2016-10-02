@@ -10,7 +10,7 @@
 
         </div>
         <div class="card-block">
-            <app-event-list [events]="events | async" (selected)="selectEvent($event)" (deleted)="deleteEvent($event)"></app-event-list>
+            <app-event-list [eventsObs]="events" (selected)="selectEvent($event)" (deleted)="deleteEvent($event)"></app-event-list>
         </div>
     </div>
 </div>

@@ -78,7 +78,6 @@ export class EventListService {
         return obs;
     }
 
-
     private convertDates(eventList: Array<TimeEvent>) {
         eventList.forEach((eventItem) => {
             eventItem.date = eventItem.date.substr(0, 10);
